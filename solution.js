@@ -1,22 +1,59 @@
 function range(start, end, step) {
   // Write a range function that takes two arguments, start and end,
   // and returns an array containing all the numbers from start up to (and including) end.
+  var newarray = [];
+  if (step===undefined) {
+    step = 1;
+    for (var i=start; i<=end; i+=step) {
+    newarray.push(i);
+    }
+  } else if (step>0) {
+    for (var i=start; i<=end; i+=step) {
+    newarray.push(i);
+    }
+  } else if (step<0) {
+    for (var i=start; i>=end; i+=step) {
+      newarray.push(i);
+    }
+  } 
+  return newarray;
 }
 
 function sum(numbers) {
   // Write a sum function that takes an array of numbers
   // and returns the sum of these numbers.
+  var sum = 0;
+  for (var i=0; i<numbers.length; i++) {
+    sum += numbers[i];
+  }
+  return sum;
 }
 
 function reverseArray(arr) {
   // Write a function which takes an array as argument
   // and produces a new array that has the same elements in the inverse order.
+  /*var arrReversed = arr;
+  arrReversed.reverse();
+  return arrReversed;*/
+  var arrReversed = [];
+  for (var i=arr.length-1; i>=0; i--) {
+    arrReversed.push(arr[i]);
+  }
+  return arrReversed;
 }
 
 function reverseArrayInPlace(arr) {
   // Write a function that does what the reverse method does:
   // it modifies the array given as argument in order to reverse
   // its elements. It should not use the standard reverse method.
+  var reversedArr = [];
+  for (var i=arr.length-1; i>=0; i--) {
+    reversedArr.push(arr[i]);
+  }
+  for (var j=0; j<arr.length; j++) {
+    arr[j] = reversedArr[j];
+  }
+  return arr;
 }
 
 function arrayToList(arr) {
@@ -41,21 +78,41 @@ function arrayToList(arr) {
   // Write a function arrayToList that builds up a data structure like
   // the previous one when given [1, 2, 3] as argument. It should use
   // helper function prepend.
+  var list = null;
+  for (var i=arr.length-1; i>=0; i--) {
+    list = {value: arr[i], rest: list};
+  }
+  return list;
 }
 
 function listToArray(list) {
   // Write a function that produces an array from a list
+  var newArr = [];
+  while (list!==null) {
+    newArr.push(list.value);
+    list = list.rest;
+  }
+  return newArr;
 }
 
 function prepend(item, list) {
   // Write a function which takes an element and a list and creates a new list
   // that adds the element to the front of the input list.
+  var newList = {value: item, rest: list};
+  return newList;
 }
 
 function nth(n, list) {
   // Write which takes a list and a number and returns the element at the
   // given position in the list, or undefined when there is no such element.
   // It should be recursive.
+  if (n===0) {
+    return list.value;
+  } else if (list.rest===null) {
+    return undefined;
+  } else {
+    return nth(n-1, list.rest);
+  }
 }
 
 function deepEqual(a, b) {
@@ -66,6 +123,9 @@ function deepEqual(a, b) {
   // only if they are the same value or are objects with the same
   // properties whose values are also equal when compared with
   // a recursive call to deepEqual.
+  /*if (a===b) {
+    return true;
+  }*/
 }
 
 module.exports = {
