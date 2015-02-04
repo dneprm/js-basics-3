@@ -126,6 +126,27 @@ function deepEqual(a, b) {
   /*if (a===b) {
     return true;
   }*/
+  if (typeof a === "object" && a!==null && typeof b === "object" && b!==null) {
+    var countKeysInA = 0;
+    var countKeysInB = 0;
+    for (var key in a) {
+      countKeysInA++;
+    }
+    for (var key in b) {
+      countKeysInB++;
+    }
+    if (countKeysInA===countKeysInB) {
+      for (var key in a) {
+        if (key in b) {
+          return deepEqual(a[key], b[key]);
+        } else {
+          return false;
+        }
+      }
+    } 
+  } else {
+    return a===b;
+  }
 }
 
 module.exports = {
